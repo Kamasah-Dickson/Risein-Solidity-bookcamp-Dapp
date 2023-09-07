@@ -49,7 +49,7 @@ const ethers = require("ethers");
 
 ## Getting a provider
 
-look for a provider in the ganache desktop application. e.g http://127.0.0.1:1245 and
+look for a provider in the ganache desktop application. e.g <http://127.0.0.1:1245> and
 inject it into the jsonRpcProvider. the url basically allows us to connect to our local blockchain
 
 ```javascript
