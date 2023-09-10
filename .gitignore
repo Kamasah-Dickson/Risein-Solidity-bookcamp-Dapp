@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 
-/Ethers
-
 # testing
 /coverage
 
@@ -28,6 +26,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
