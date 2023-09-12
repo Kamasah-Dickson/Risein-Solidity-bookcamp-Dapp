@@ -143,11 +143,3 @@ run the following to generate a fake account and private key for testing locally
 
 npx hardhat node
 ```
-
-Inside the solidity folder, you can do
-
-```bash
-
-npx hardhat deploy
-
-```
