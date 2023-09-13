@@ -1,145 +1,139 @@
-# Basic FundMe Website
+# Hardhat Smartcontract Lottery (vault) FCC
 
-This project demonstrates a basic FundMe Website Where you can connect wallet Lock and withdrew BNB.
-Try running some of the following tasks:
+-  [Getting Started](#getting-started)
+   -  [Requirements](#requirements)
+   -  [Quickstart](#quickstart)
+-  [Usage](#usage)
+   -  [Testing](#testing)
+      -  [Test Coverage](#test-coverage)
+-  [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
+   -  [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
+   -  [Verify on binancescan](#verify-on-binancescan)
+      -  [Typescript differences](#typescript-differences)
+-  [Linting](#linting)
+-  [Thank you!](#thank-you)
 
-# Solidity-bookcamp-Final-Project
+This project is apart of the Hardhat FreeCodeCamp video.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Checkout the full blockchain course video [here.](https://www.youtube.com/watch?v=gyMwXuJrbJQ)
 
-## Getting Started
+# Getting Started
 
-First, run the development server:
+## Requirements
 
-```bash
-npm install
+-  [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+   -  You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
+-  [Nodejs](https://nodejs.org/en/)
+   -  You'll know you've installed nodejs right if you can run:
+      -  `node --version` and get an ouput like: `vx.x.x`
+-  [Yarn](https://yarnpkg.com/getting-started/install) instead of `npm`
+   -  You'll know you've installed yarn right if you can run:
+      -  `yarn --version` and get an output like: `x.x.x`
+      -  You might need to [install it with `npm`](https://classic.yarnpkg.com/lang/en/docs/install/) or `corepack`
 
-npm run dev
-```
-
-cd into the solidity directory and install the dependencies for hardhat.
-
-```bash
-npm install
-
-```
-
-run the following to deploy to bnbscan
-
-```bash
-npx hardhat deploy --network bnbchain
-
-```
-
-to run tests on the bnbchain,
-
-```bash
-npx hardhat test --network bnbchain
-```
-
-## Using Ganache & Networks(optional)
-
-Ganache is a javaScript virtual fake environment;
-to deploy the contract on a fake blockchain you can use Ganache. but in this project we are using the hardhat runtime environment as the javaScript runtime environment for our solidity code.
-
-[Ganache](https://trufflesuite.com/ganache/):
-Ganache is a Quick fire up a personal Ethereum blockchain which you can use to run tests, execute commands, and inspect state while controlling how the chain operates.
-
-Some of the things I learnt along the way. `Cannot specify all`
-
-## ethers.js
-
-ethers.js is a js library that powers hardhat environment. for this project we are using hardhat so that we can test and compile our solidity code. this is optional if you want to install ethers.js
-
-```javascript
-
-yarn add ethers.js
-
-or
-
-npm install ethers
-```
-
-utilizing ethers
-
-```javascript
-const ethers = require("ethers");
-```
-
-## Getting a provider
-
-Get your provider in the ganache desktop application. e.g mine is <http://127.0.0.1:1245> and
-inject it into the jsonRpcProvider. the url basically allows us to connect to our local blockchain which is Ganache.
-
-```javascript
-
-const provider = new ethers.jsonRpcProvider(http:127.0.0.1:7545)
-```
-
-## Getting a wallet
-
-to get a fake wallet for the dev env you can find a private key in the ganache application by clicking on one of the icons that looks like a key on the fake address. it is adviceable to save your private key in a .env environment.
-
-```javascript
-const wallet = new ethers.wallet(process.env.PRIVATE_KEY, provider);
-```
-
-## Deploying a contract
-
-in other to deploy a contract we need three things. the ABI, the BIN and a contract factory.
-to get your ABI and BIN please go and checkout the solc.js repository in github and
-follow the instructions to get your abi and bin or use my script. in my case i have a solidity directory so am compiling them in that folder.
-
-```javascript
-
-add the line below to the package.json scripts
-
-"compile": "solcjs --bin --include-path node_modules/ --base-path solidity/ --output-dir solidity/ solidity/SimpleStorage.sol"
+## Quickstart
 
 ```
-
-## ABI
-
-```javascript
-const abi = fs.readFileSync(pathToABIfile, "utf8");
+git clone https://github.com/Kamasah-Dickson/Solidity-bookcamp-Final-Project.git
 ```
 
-## BIN
+# Usage
 
-```javascript
-const bin = fs.readFileSync(pathToBINfile, "utf8");
-```
-
-## Contract Factory
-
-contract factory is used to deploy a contract to the blockchain. it contains your credentials or should i say meta.
-
-```javascript
-const contractFactory = new ethers.ContractFactory(abi, bin, wallet);
-console.log("Deploying,please wait...");
-const contract = await contractFactory.deploy();
-console.log(contract); //logs your credentials
-```
-
-## Solidity Coverage
-
-solidity coverage is an npm package that tracks solidity files or lines that has not been tested. to install
-
-```javascript
-
-yarn add solidity-coverage
-
-or
-
-npm install solidity-coverage
+Deploy:
 
 ```
-
-## localy generate fake accounts and private keys
-
-run the following to generate a fake account and private key for testing locally
-
-```bash
-
-npx hardhat node
+yarn hardhat deploy
 ```
+
+## Testing
+
+```
+yarn hardhat test
+```
+
+### Test Coverage
+
+```
+yarn hardhat coverage
+```
+
+# Deployment to a testnet or mainnet
+
+1. Setup environment variabltes
+
+You'll want to set your `BNB_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to an `.env` file, similar to what you see in `.env`.
+
+-  `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
+   -  You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
+-  `BNBCHAIN_RPC_URL`: This is url of the sepolia testnet node you're working with.
+
+2. Get testnet ETH
+
+Head over to [Bnbchain.org](https://testnet.bnbchain.org/faucet-smart) and get some tesnet ETH. You should see the ETH show up in your metamask.
+
+3. Setup a Chainlink VRF Subscription ID
+
+Head over to [vrf.chain.link](https://vrf.chain.link/) and setup a new subscription, and get a subscriptionId. You can reuse an old subscription if you already have one.
+
+[You can follow the instructions](https://docs.chain.link/docs/get-a-random-number/) if you get lost. You should leave this step with:
+
+1. A subscription ID
+2. Your subscription should be funded with LINK
+
+3. Deploy
+
+In your `helper-hardhat-config.js` add your `subscriptionId` under the section of the chainId you're using (aka, if you're deploying to sepolia, add your `subscriptionId` in the `subscriptionId` field under the `11155111` section.)
+
+Then run:
+
+```
+yarn hardhat deploy --network bnbchain
+```
+
+And copy / remember the contract address.
+
+4. Add your contract address as a Chainlink VRF Consumer
+
+Go back to [vrf.chain.link](https://vrf.chain.link) and under your subscription add `Add consumer` and add your contract address. You should also fund the contract with a minimum of 1 LINK.
+
+5. Register a Chainlink Keepers Upkeep
+
+[You can follow the documentation if you get lost.](https://docs.chain.link/docs/chainlink-keepers/compatible-contracts/)
+
+Go to [keepers.chain.link](https://keepers.chain.link/new) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation. Your UI will look something like this once completed:
+
+6. Enter your vault!
+
+You're contract is now setup to be a tamper proof autonomous verifiably random lottery. Enter the lottery by running:
+
+```
+yarn hardhat run scripts/enter.js --network bnbchain
+```
+
+### Estimate gas cost in USD
+
+To get a USD estimation of gas cost, you'll need a `COINMARKETCAP_API_KEY` environment variable. You can get one for free from [CoinMarketCap](https://pro.coinmarketcap.com/signup).
+
+Then, uncomment the line `coinmarketcap: COINMARKETCAP_API_KEY,` in `hardhat.config.js` to get the USD estimation. Just note, everytime you run your tests it will use an API call, so it might make sense to have using coinmarketcap disabled until you need it. You can disable it by just commenting the line back out.
+
+## Verify on binancescan
+
+If you deploy to a testnet or mainnet, you can verify it if you get an [API Key](https://bscscan.com/apis) from bscscan. remember to choose the free teer and set it as an environemnt variable named `BINANCESCAN_API_KEY`. You can pop it into your `.env`
+
+In it's current state, if you have your api key set, it will auto verify bnb contracts!
+
+# Linting
+
+To check linting / code formatting:
+
+```
+yarn lint
+```
+
+or, to fix:
+
+```
+yarn lint:fix
+```
+
+# Thank you!

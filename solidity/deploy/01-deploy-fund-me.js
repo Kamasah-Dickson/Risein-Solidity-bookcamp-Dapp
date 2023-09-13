@@ -1,35 +1,74 @@
-const { network } = require("hardhat")
-
-const { networkConfig, developmentChains } = require("../helper-hardhat-config")
+const { network, ethers } = require("hardhat")
+const {
+   networkConfig,
+   developmentChains,
+   VERIFICATION_BLOCK_CONFIRMATIONS,
+} = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
+
+const FUND_AMOUNT = ethers.utils.parseEther("1") // 1 Ether, or 1e18 (10^18) Wei
+
 module.exports = async ({ getNamedAccounts, deployments }) => {
    const { deploy, log } = deployments
    const { deployer } = await getNamedAccounts()
    const chainId = network.config.chainId
+   let vrfCoordinatorV2Address, subscriptionId, vrfCoordinatorV2Mock
 
-   let ethUsdPriceFeedAddress
-   if (developmentChains.includes(network.name)) {
-      const ethUsdAggregator = await deployments.get("MockV3Aggregator")
-      ethUsdPriceFeedAddress = ethUsdAggregator.address
+   if (chainId == 31337) {
+      // create VRFV2 Subscription
+      vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
+      vrfCoordinatorV2Address = vrfCoordinatorV2Mock.address
+      const transactionResponse =
+         await vrfCoordinatorV2Mock.createSubscription()
+      const transactionReceipt = await transactionResponse.wait()
+      subscriptionId = transactionReceipt.events[0].args.subId
+      // Fund the subscription
+      await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, FUND_AMOUNT)
    } else {
-      ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
+      vrfCoordinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
+      subscriptionId = networkConfig[chainId]["subscriptionId"]
    }
-   //* when going for localhost or hardhat network we want to use a mock
-   const args = [ethUsdPriceFeedAddress]
-   const fundMe = await deploy("FundMe", {
+   const waitBlockConfirmations = developmentChains.includes(network.name)
+      ? 1
+      : VERIFICATION_BLOCK_CONFIRMATIONS
+
+   log("----------------------------------------------------")
+   const args = [
+      vrfCoordinatorV2Address,
+      subscriptionId,
+      networkConfig[chainId]["gasLane"],
+      networkConfig[chainId]["keepersUpdateInterval"],
+      networkConfig[chainId]["vaultEntranceFee"],
+      networkConfig[chainId]["callbackGasLimit"],
+   ]
+   const vault = await deploy("vault", {
       from: deployer,
       args: args,
       log: true,
-      waitConfirmations: network.config.blockConfirmations || 1,
+      waitConfirmations: waitBlockConfirmations,
    })
 
-   if (
-      !developmentChains.includes(network.name) &&
-      process.env.BINANCESCAN_API_KEY
-   ) {
-      await verify(fundMe.address, args)
+   // Ensure the vault contract is a valid consumer of the VRFCoordinatorV2Mock contract.
+   if (developmentChains.includes(network.name)) {
+      const vrfCoordinatorV2Mock = await ethers.getContract(
+         "VRFCoordinatorV2Mock"
+      )
+      await vrfCoordinatorV2Mock.addConsumer(subscriptionId, vault.address)
    }
 
-   log("----------------------------------------------------------------")
+   // Verify the deployment
+   if (
+      !developmentChains.includes(network.name) &&
+      process.env.ETHERSCAN_API_KEY
+   ) {
+      log("Verifying...")
+      await verify(vault.address, args)
+   }
+
+   log("Enter lottery with command:")
+   const networkName = network.name == "hardhat" ? "localhost" : network.name
+   log(`yarn hardhat run scripts/entervault.js --network ${networkName}`)
+   log("----------------------------------------------------")
 }
-module.exports.tags = ["all", "fundMe"]
+
+module.exports.tags = ["all", "vault"]
