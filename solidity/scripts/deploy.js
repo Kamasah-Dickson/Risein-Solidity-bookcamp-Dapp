@@ -13,7 +13,6 @@ async function main() {
 	console.log(`deployed contract to: ${contractAdderss}`);
 	// verify our contract if the chainId is 97 which is bnb and the bscscan api key is true
 
-	console.log(process.env.BINANCESCAN_API_KEY);
 	if (network.config.chainId === 97 && process.env.BINANCESCAN_API_KEY) {
 		// am waiting for a few blocks to be mined before i verify because bscscan might not know about the transaction yet
 		await lockToken.deploymentTransaction().wait(6);
