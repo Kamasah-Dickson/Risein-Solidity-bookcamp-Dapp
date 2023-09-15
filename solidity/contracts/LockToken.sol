@@ -21,7 +21,7 @@ contract LockToken {
     }
 
     //state variables
-    mapping(address => Deposit) public s_deposits;
+    mapping(address => Deposit) private s_deposits;
     mapping(address => uint256) public withdrawalBalances;
     uint256 constant MINIMUM_BNB = 1e18;
     address private immutable i_owner;
@@ -107,7 +107,7 @@ contract LockToken {
         depositInfo.amount = 0;
     }
 
-    // Function(view functions)
+    // Functions(view functions)
 
     /**
      * @notice this function  calculates daily rewards
@@ -132,6 +132,11 @@ contract LockToken {
         }
     }
 
+    /**
+     * @notice this function gets the owner or the funder
+     * @return owner or the funder
+     */
+
     function getOwner() public view returns (address) {
         return i_owner;
     }
@@ -143,7 +148,7 @@ contract LockToken {
 
     function getDepositAmount(
         address userAddress
-    ) public view returns (uint256) {
-        return s_deposits[userAddress].amount;
+    ) public view returns (Deposit memory) {
+        return s_deposits[userAddress];
     }
 }
