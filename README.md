@@ -64,6 +64,7 @@ or
 yarn test
 
 ```
+![Capture](https://github.com/Kamasah-Dickson/Risein-Solidity-bookcamp-Dapp/assets/86136379/255fa2f8-3337-414c-9e5f-532202761779)
 
 ## Deploying to a testnet
 
