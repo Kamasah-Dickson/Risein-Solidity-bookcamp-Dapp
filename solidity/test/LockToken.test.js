@@ -33,7 +33,7 @@ describe("LockToken Contract", function () {
 		});
 
 		// Verify the deposit for User 1
-		const user1Deposit = await lockToken.s_deposits(user1.address);
+		const user1Deposit = await lockToken.getDepositAmount(user1.address);
 		expect(user1Deposit.amount).to.equal(depositAmount);
 		expect(user1Deposit.unlockTime).to.not.equal(0);
 		expect(user1Deposit.rate).to.equal(interestRate);
@@ -55,7 +55,7 @@ describe("LockToken Contract", function () {
 
 		// Verify the deposit amount for User 1
 		const user1DepositAmount = await lockToken.getDepositAmount(user1.address);
-		expect(user1DepositAmount).to.equal(depositAmount);
+		expect(user1DepositAmount.amount).to.equal(depositAmount);
 	});
 
 	it("Should prevent withdrawal when funds are still locked", async function () {
@@ -75,7 +75,7 @@ describe("LockToken Contract", function () {
 		await lockToken.connect(user1).withdraw();
 
 		// Ensure the deposit amount is updated to 0
-		const user1Deposit = await lockToken.s_deposits(user1.address);
+		const user1Deposit = await lockToken.getDepositAmount(user1.address);
 		expect(user1Deposit.amount).to.equal(0);
 	});
 
@@ -110,7 +110,7 @@ describe("LockToken Contract", function () {
 		await lockToken.connect(user1).withdraw();
 
 		// Ensure the deposit amount is updated to 0
-		const user1Deposit = await lockToken.s_deposits(user1.address);
+		const user1Deposit = await lockToken.getDepositAmount(user1.address);
 		expect(user1Deposit.amount).to.equal(0);
 
 		// Calculate the expected interest
