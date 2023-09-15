@@ -21,10 +21,10 @@ contract LockToken {
     }
 
     //state variables
-    mapping(address => Deposit) public deposits;
+    mapping(address => Deposit) public s_deposits;
     mapping(address => uint256) public withdrawalBalances;
     uint256 constant MINIMUM_BNB = 1e18;
-    address public immutable i_owner;
+    address private immutable i_owner;
 
     //events
     event DepositReceived(address indexed user, uint256 amount);
@@ -70,7 +70,7 @@ contract LockToken {
             revert("Interest rate cannot exceed 70%");
         }
 
-        Deposit storage depositInfo = deposits[msg.sender];
+        Deposit storage depositInfo = s_deposits[msg.sender];
 
         depositInfo.amount = msg.value;
         depositInfo.unlockTime = block.timestamp + _unlockDuration;
@@ -85,7 +85,7 @@ contract LockToken {
      */
 
     function withdraw() external {
-        Deposit storage depositInfo = deposits[msg.sender];
+        Deposit storage depositInfo = s_deposits[msg.sender];
         if (depositInfo.amount == 0) {
             revert("No active deposit");
         }
@@ -117,7 +117,7 @@ contract LockToken {
     function calculateDailyReward(
         address user
     ) internal view returns (uint256) {
-        Deposit storage depositInfo = deposits[user];
+        Deposit storage depositInfo = s_deposits[user];
         uint256 principal = depositInfo.amount;
         uint256 unlockTime = depositInfo.unlockTime;
 
@@ -130,5 +130,20 @@ contract LockToken {
         } else {
             revert("Tokens are still locked, no rewards earned");
         }
+    }
+
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
+    /**
+     * @notice this function allow users to get the amount funded
+     * @param userAddress  is the address of the user who funded the contract
+     */
+
+    function getDepositAmount(
+        address userAddress
+    ) public view returns (uint256) {
+        return s_deposits[userAddress].amount;
     }
 }
