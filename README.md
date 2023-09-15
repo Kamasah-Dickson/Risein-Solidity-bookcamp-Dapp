@@ -1,5 +1,7 @@
 # Risein Smartcontract Bootcamp
 
+This is the first part of the rise in solidity and bnb chain dapp
+
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
