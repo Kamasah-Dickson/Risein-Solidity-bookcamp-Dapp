@@ -28,7 +28,7 @@
 ## Quickstart
 
 ```bash
-git clone https://github.com/Kamasah-Dickson/Solidity-bookcamp-Final-Project.git
+git clone https://github.com/Kamasah-Dickson/Risein-Solidity-bookcamp-Dapp.git
 
 ```
 
