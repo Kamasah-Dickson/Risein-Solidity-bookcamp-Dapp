@@ -9,6 +9,7 @@
 - [Deployment to the bnb testnet](#deploying-to-a-testnet)
   - [Verify on bscscan](#verify-on-bscscan)
 - [Thank you!](#thank-you)
+- [Contact](#contact)
 
 ## Getting Started
 
@@ -41,24 +42,24 @@ npm install
 
 ## Deployment
 
-will automatically deploy to the bnb testnet
+will automatically deploy to the bnb testnet. this will automatically try to verify the contract also. if it fails might be timeout error but has been deployed, and you can go ahead and verify if it yourself by copying the contract address logged in the console.
 
 ```bash
-npx hardhat deploy
+npm run deploy
 
 or
 
-yarn hardhat deploy
+yarn deploy
 
 ```
 
 ## Testing
 
 ```bash
-npx hardhat test
+npm run test
 
 or
-yarn hardhat test
+yarn test
 
 ```
 
@@ -90,5 +91,9 @@ And copy / remember the contract address to verify on bscscan.
 
 If you deploy to a testnet, you can verify it if you get an [API Key](https://bscscan.com/apis) from bscscan. remember to choose the free teer and set it as an environemnt variable named `BINANCESCAN_API_KEY`. You can pop it into your `.env`
 In it's current state, if you have your api key set, it will auto verify bnb contracts!
+
+### contact
+
+For questions or feedback, feel free to contact me, [kamasahdickson19@gmail.com](kamasahdickson19@gmail.com)
 
 ### Thank you
