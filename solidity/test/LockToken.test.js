@@ -32,7 +32,7 @@ describe("LockToken Contract", function () {
 			value: depositAmount,
 		});
 
-		// Verify the deposit for User 1
+		// Verifying the deposit for User 1
 		const user1Deposit = await lockToken.getDepositAmount(user1.address);
 		expect(user1Deposit.amount).to.equal(depositAmount);
 		expect(user1Deposit.unlockTime).to.not.equal(0);
@@ -113,7 +113,7 @@ describe("LockToken Contract", function () {
 		const user1Deposit = await lockToken.getDepositAmount(user1.address);
 		expect(user1Deposit.amount).to.equal(0);
 
-		// Calculate the expected interest
+		// Calculating the expected interest
 		const expectedInterest =
 			(BigInt(depositAmount) * BigInt(unlockDuration) * BigInt(interestRate)) /
 			(100n * 86400n);
