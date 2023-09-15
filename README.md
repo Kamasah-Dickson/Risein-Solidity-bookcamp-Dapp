@@ -12,6 +12,7 @@ This is the first part of the rise in solidity and bnb chain dapp
   - [Verify on bscscan](#verify-on-bscscan)
 - [Thank you!](#thank-you)
 - [Contact](#contact)
+- [License](#license)
 
 ## Getting Started
 
@@ -97,5 +98,9 @@ In it's current state, if you have your api key set, it will auto verify bnb con
 ### contact
 
 For questions or feedback, feel free to contact me, [kamasahdickson19@gmail.com](kamasahdickson19@gmail.com)
+
+## License
+
+This project is licensed under the MIT [License](https://github.com/Kamasah-Dickson/Risein-Solidity-bookcamp-Dapp/blob/master/LICENSE).
 
 ### Thank you
