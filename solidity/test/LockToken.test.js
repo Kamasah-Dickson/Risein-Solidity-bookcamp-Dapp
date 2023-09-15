@@ -1,7 +1,5 @@
-// Import necessary dependencies and ethers
 const { expect } = require("chai");
-const { network, deployments, ethers } = require("hardhat");
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 // a function to increase the time in the Ethereum simulator
 async function increaseTime(seconds) {
@@ -58,6 +56,19 @@ describe("LockToken Contract", function () {
 		// Ensure the deposit amount is updated to 0
 		const user1Deposit = await lockToken.deposits(user1.address);
 		expect(user1Deposit.amount).to.equal(0);
+	});
+
+	it("Should revert if interest rate is above 70%", async function () {
+		const depositAmount = ethers.parseEther("1");
+		const unlockDuration = 60; // 60 seconds
+		const highInterestRate = 75; // 75% (above 70%)
+
+		// Ensuring that the deposit function reverts with a high interest rate
+		await expect(
+			lockToken.connect(user1).deposit(unlockDuration, highInterestRate, {
+				value: depositAmount,
+			})
+		).to.be.revertedWith("Interest rate cannot exceed 70%");
 	});
 
 	it("Should allow users to withdraw funds with earned interest", async function () {
