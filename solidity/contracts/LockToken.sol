@@ -66,6 +66,9 @@ contract LockToken {
         if (msg.value < MINIMUM_BNB) {
             revert("Deposit amount must be at least 1ETH");
         }
+        if (_rate > 70) {
+            revert("Interest rate cannot exceed 70%");
+        }
 
         Deposit storage depositInfo = deposits[msg.sender];
 
