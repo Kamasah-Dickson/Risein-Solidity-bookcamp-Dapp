@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	.home {
+		background-image: url("../public/images/Cover.svg");
+	}
+
+	.my-max {
+		width: min(100% - 1.6em, 75rem);
+		margin-inline: auto;
+	}
+
+	.my-before {
+		position: relative;
+		z-index: 2;
+		&::before {
+			content: "";
+			position: absolute;
+			bottom: -10px;
+			right: 15%;
+			background-image: url("../public/images/Ellipse\ 68.svg");
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 100px;
+			height: 60px;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			top: 20px;
+			right: 44%;
+			background-image: url("../public/images/Rectangle\ 18.svg");
+			background-repeat: no-repeat;
+			background-size: auto;
+			background-position: center;
+			width: 50px;
+			height: 150px;
+			z-index: -2;
+		}
+	}
+}
