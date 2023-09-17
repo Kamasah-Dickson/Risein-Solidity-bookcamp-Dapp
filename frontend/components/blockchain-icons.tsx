@@ -1,4 +1,4 @@
-import { iconData } from "@/styles/data";
+import { iconData } from "@/data";
 import Image from "next/image";
 import React from "react";
 
