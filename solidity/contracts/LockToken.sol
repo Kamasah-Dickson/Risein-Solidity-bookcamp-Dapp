@@ -27,10 +27,10 @@ contract LockToken {
     address private immutable i_owner;
 
     //events
-    event DepositReceived(address indexed user, uint256 amount);
-    event UnlockDurationSet(address indexed user, uint256 unlockTime);
+    event DepositReceived(address indexed userAddress, uint256 amount);
+    event UnlockDurationSet(address indexed userAddress, uint256 unlockTime);
     event Withdrawal(
-        address indexed user,
+        address indexed userAddress,
         uint256 amount,
         uint256 interest,
         uint256 when
@@ -111,13 +111,13 @@ contract LockToken {
 
     /**
      * @notice this function  calculates daily rewards
-     * @param user  is the user address, it is used to access the deposite info of the user
+     * @param userAddress  is the user address, it is used to access the deposite info of the user
      */
 
     function calculateDailyReward(
-        address user
+        address userAddress
     ) internal view returns (uint256) {
-        Deposit storage depositInfo = s_deposits[user];
+        Deposit storage depositInfo = s_deposits[userAddress];
         uint256 principal = depositInfo.amount;
         uint256 unlockTime = depositInfo.unlockTime;
 
