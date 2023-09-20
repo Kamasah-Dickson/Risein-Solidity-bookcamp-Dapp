@@ -1,1 +1,233 @@
-{}
+[
+	{ "type": "constructor", "inputs": [], "payable": false, "gas": null },
+	{
+		"type": "event",
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address",
+				"baseType": "address",
+				"indexed": true,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "amount",
+				"type": "uint256",
+				"baseType": "uint256",
+				"indexed": false,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "DepositReceived",
+		"anonymous": false
+	},
+	{
+		"type": "event",
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address",
+				"baseType": "address",
+				"indexed": true,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "unlockTime",
+				"type": "uint256",
+				"baseType": "uint256",
+				"indexed": false,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "UnlockDurationSet",
+		"anonymous": false
+	},
+	{
+		"type": "event",
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address",
+				"baseType": "address",
+				"indexed": true,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "amount",
+				"type": "uint256",
+				"baseType": "uint256",
+				"indexed": false,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "interest",
+				"type": "uint256",
+				"baseType": "uint256",
+				"indexed": false,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "when",
+				"type": "uint256",
+				"baseType": "uint256",
+				"indexed": false,
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "Withdrawal",
+		"anonymous": false
+	},
+	{
+		"type": "function",
+		"inputs": [
+			{
+				"name": "_unlockDuration",
+				"type": "uint256",
+				"baseType": "uint256",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			},
+			{
+				"name": "_rate",
+				"type": "uint256",
+				"baseType": "uint256",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "deposit",
+		"constant": false,
+		"outputs": [],
+		"stateMutability": "payable",
+		"payable": true,
+		"gas": null
+	},
+	{
+		"type": "function",
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address",
+				"baseType": "address",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "getDepositAmount",
+		"constant": true,
+		"outputs": [
+			{
+				"name": "",
+				"type": "tuple",
+				"baseType": "tuple",
+				"components": [
+					{
+						"name": "amount",
+						"type": "uint256",
+						"baseType": "uint256",
+						"components": null,
+						"arrayLength": null,
+						"arrayChildren": null
+					},
+					{
+						"name": "unlockTime",
+						"type": "uint256",
+						"baseType": "uint256",
+						"components": null,
+						"arrayLength": null,
+						"arrayChildren": null
+					},
+					{
+						"name": "rate",
+						"type": "uint256",
+						"baseType": "uint256",
+						"components": null,
+						"arrayLength": null,
+						"arrayChildren": null
+					}
+				],
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"stateMutability": "view",
+		"payable": false,
+		"gas": null
+	},
+	{
+		"type": "function",
+		"inputs": [],
+		"name": "getOwner",
+		"constant": true,
+		"outputs": [
+			{
+				"name": "",
+				"type": "address",
+				"baseType": "address",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"stateMutability": "view",
+		"payable": false,
+		"gas": null
+	},
+	{
+		"type": "function",
+		"inputs": [],
+		"name": "withdraw",
+		"constant": false,
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"payable": false,
+		"gas": null
+	},
+	{
+		"type": "function",
+		"inputs": [
+			{
+				"name": "",
+				"type": "address",
+				"baseType": "address",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"name": "withdrawalBalances",
+		"constant": true,
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256",
+				"baseType": "uint256",
+				"components": null,
+				"arrayLength": null,
+				"arrayChildren": null
+			}
+		],
+		"stateMutability": "view",
+		"payable": false,
+		"gas": null
+	}
+]
