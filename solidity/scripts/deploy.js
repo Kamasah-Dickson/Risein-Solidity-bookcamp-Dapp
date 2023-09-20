@@ -1,33 +1,22 @@
 // You can run this script with `npx hardhat run scripts/deploy.js`.
 
 const { ethers, run, network } = require("hardhat");
-const updateFrontend = require("./update-frontend");
 
 async function main() {
-	try {
-		const lockTokenFactory = await ethers.getContractFactory("LockToken");
+	const lockTokenFactory = await ethers.getContractFactory("LockToken");
 
-		console.log("###################################################");
-		console.log("Deploying contract...");
-		const lockToken = await lockTokenFactory.deploy();
-		await lockToken.waitForDeployment();
-		const contractAdderss = await lockToken.getAddress();
-		console.log("updating frontend...");
+	console.log(".............Deploying contract...........");
 
-		console.log("contract deployed👣");
-		console.log(`contract deployed to: ${contractAdderss}`);
-		console.log("###################################################");
+	const lockToken = await lockTokenFactory.deploy();
+	await lockToken.waitForDeployment(); //
+	const contractAddress = await lockToken.getAddress();
+	console.log(`deployed contract to: ${contractAddress}`);
+	// verify our contract if the chainId is 97 which is bnb and the bscscan api key is true
 
-		// verify our contract if the chainId is 97 which is bnb and the bscscan api key is true
-		if (network.config.chainId === 97 && process.env.BINANCESCAN_API_KEY) {
-			// am waiting for a few blocks to be mined before i verify because bscscan might not know about the transaction yet
-			updateFrontend();
-			await lockToken.deploymentTransaction().wait(6);
-			await verify(contractAdderss, []);
-		}
-	} catch (error) {
-		console.log(error);
-		process.exitCode = 1;
+	if (network.config.chainId === 97 && process.env.BINANCESCAN_API_KEY) {
+		// am waiting for a few blocks to be mined before i verify because bscscan might not know about the transaction yet
+		await lockToken.deploymentTransaction().wait(6);
+		await verify(contractAddress, []);
 	}
 }
 
