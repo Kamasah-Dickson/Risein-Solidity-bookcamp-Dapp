@@ -11,6 +11,8 @@ interface Isteps {
 }
 const Main_entrance = () => {
 	const { address } = useAccount();
+	const [transError, setTransError] = useState([{ message: "", id: "" }]);
+
 	const [steps, setSteps] = useState<Isteps[]>([
 		{ completed: false, step: 1 },
 		{ completed: false, step: 2 },
@@ -19,7 +21,6 @@ const Main_entrance = () => {
 	const [duration, setDuration] = useState("");
 
 	const [currentActiveStep, setCurrentActiveStep] = useState(1);
-	const [transError, setTransError] = useState<null | string>("");
 	const updateSteps = ({ step }: { completed: boolean; step: number }) => {
 		const findStep = steps.find((targetStep) => targetStep.step === step);
 		const findCompletedSteps = steps.filter((allSteps) => allSteps.completed);
@@ -88,12 +89,11 @@ const Main_entrance = () => {
 					? "Congratulations✨ you are about to get some amazing rewards!🎉"
 					: ""}
 			</p>
-			<div className="flex mt-5 flex-col md:flex-row items-start md:gap-20 w-full max-w-3xl mx-auto">
+			<div
+				className={`flex mt-5 flex-col md:flex-row items-start md:gap-20 w-full max-w-3xl mx-auto`}
+			>
 				{currentActiveStep == 1 ? (
-					<SendTransaction
-						goTonextStep={goTonextStep}
-						setTransError={setTransError}
-					/>
+					<SendTransaction goTonextStep={goTonextStep} />
 				) : currentActiveStep == 2 ? (
 					<LockToken
 						goTonextStep={goTonextStep}
@@ -107,21 +107,16 @@ const Main_entrance = () => {
 				{(!currentActiveStep as unknown as number) === 3 ? (
 					<></>
 				) : (
-					<div className="mt-7 bg-[#40404421] p-5 rounded-md mb-7 md:mb-0">
+					<div className="mt-7  mb-7 md:mb-0">
 						{currentActiveStep === 1 ? (
 							<>
-								<div>
+								<div className="bg-[#40404421]  p-5 rounded-md">
 									<h2 className="mb-3">Step1</h2>
 									<span className="text-xs">
 										A deposit of at least 0.01BNB to prevent fraudulent acts and
 										mentain integrity to the smartcontract.
 									</span>
 								</div>
-								{transError && (
-									<div>
-										<span className="text-xs">{transError}</span>
-									</div>
-								)}
 							</>
 						) : currentActiveStep === 2 ? (
 							<div>
