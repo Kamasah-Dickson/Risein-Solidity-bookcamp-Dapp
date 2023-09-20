@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+// require("hardhat-gas-reporter");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -20,6 +21,15 @@ module.exports = {
 			chainId: 97,
 		},
 	},
+
+	// gasReporter: {
+	// 	enabled: true,
+	// 	currency: "BNB",
+	// 	noColors: true,
+	// 	coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+	// 	token: "BNB",
+	// },
+
 	etherscan: {
 		// yarn hardhat verify --network <NETWORK>
 		apiKey: BINANCESCAN_API_KEY,
