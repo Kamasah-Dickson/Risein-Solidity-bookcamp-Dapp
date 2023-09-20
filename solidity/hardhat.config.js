@@ -2,7 +2,6 @@ require("@nomicfoundation/hardhat-toolbox");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
-// require("hardhat-deploy");
 require("dotenv").config();
 
 const BNBCHAIN_RPC_URL =
@@ -13,12 +12,11 @@ const BINANCESCAN_API_KEY =
 
 module.exports = {
 	solidity: "0.8.9",
-	// defaultNetwork: "bnbchain",
+	defaultNetwork: "bnbchain",
 	networks: {
 		bnbchain: {
 			url: BNBCHAIN_RPC_URL,
-			accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-			// saveDeployments: true,
+			accounts: [PRIVATE_KEY],
 			chainId: 97,
 		},
 	},
