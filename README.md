@@ -43,6 +43,35 @@ install:
 npm install
 ```
 
+## Environment Variables
+
+please get your environment variables
+
+```javascript
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+
+const BINANCESCAN_API_KEY = process.env.BINANCESCAN_API_KEY;
+
+const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
+```
+
+for your bscscan api key please go to https://bscscan.com/myapikey
+and for the coinmarketcap api which i use to generate gas consumption reports for my smart contract. please go to https://coinmarketcap.com/api/ to get your api key or comment out the gasReporter in the `hardhat.config.js` file and comment out
+
+```javascript
+require("hardhat-gas-reporter");
+
+
+gasReporter: {
+  enabled: true,
+  currency: "BNB",
+  noColors: true,
+  coinmarketcap: COINMARKETCAP_API_KEY,
+  token: "BNB",
+ },
+
+```
+
 ## Deployment
 
 will automatically deploy to the bnb testnet. this will automatically try to verify the contract also. if it fails might be timeout error but has been deployed, and you can go ahead and verify if it yourself by copying the contract address logged in the console.
