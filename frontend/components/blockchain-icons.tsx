@@ -4,7 +4,7 @@ import React from "react";
 
 const Blockchain_icons = () => {
 	return (
-		<div className="flex my-before select-none items-center gap-5 max-w-xl justify-center flex-wrap">
+		<div className="flex my-before select-none mt-14 items-center gap-5 max-w-xl justify-center flex-wrap">
 			{iconData.map((icons) => {
 				return (
 					<div
