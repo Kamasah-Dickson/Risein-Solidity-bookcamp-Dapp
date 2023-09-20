@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+	body {
+		&::-webkit-scrollbar {
+			width: 15px;
+			background-color: #171718ec;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: linear-gradient(to bottom, #5150e7, #118333c0);
+			border-radius: 10px;
+		}
+	}
 	.home {
 		background-image: url("../public/images/Cover.svg");
 	}
