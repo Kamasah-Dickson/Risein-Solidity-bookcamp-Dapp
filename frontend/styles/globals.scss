@@ -51,4 +51,14 @@
 			z-index: -2;
 		}
 	}
+
+	.scroller {
+		&::-webkit-scrollbar {
+			width: 10px;
+			background-color: #171718ec;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #5150e7;
+		}
+	}
 }
