@@ -10,10 +10,9 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, bscTestnet } from "wagmi/chains";
-
+import { ToastContainer } from "react-toastify";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-
 const { chains, publicClient } = configureChains(
 	[bscTestnet, mainnet, polygon, optimism, arbitrum],
 	[
@@ -36,6 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<ProgressBar color="#5150E7" height={3} />
+			<ToastContainer />
 			<WagmiConfig config={wagmiConfig}>
 				<RainbowKitProvider
 					chains={chains}
