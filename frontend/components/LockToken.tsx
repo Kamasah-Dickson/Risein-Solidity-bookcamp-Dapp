@@ -69,7 +69,7 @@ export function LockToken({ goTonextStep, duration, setDuration }: Itrans) {
 
 	return (
 		<form
-			className="bg-[#40404421] shadow-sm backdrop-blur-sm mt-7 md:mb-20 rounded-xl flex flex-col w-full gap-5 p-7 max-w-md mx-auto"
+			className="bg-[#40404421] shadow-sm backdrop-blur-sm mt-7 md:mb-20 rounded-xl flex flex-col w-full gap-5 p-7 max-w-lg mx-auto"
 			onSubmit={(e) => {
 				e.preventDefault();
 				// sendTransaction?.();

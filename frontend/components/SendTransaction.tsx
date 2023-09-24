@@ -19,7 +19,6 @@ import {
 } from "wagmi";
 import { parseEther } from "ethers";
 import { toast } from "react-toastify";
-import { parseGwei } from "viem";
 
 interface Itrans {
 	goTonextStep: () => void;
@@ -100,9 +99,9 @@ export function SendTransaction({ goTonextStep }: Itrans) {
 	};
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col w-full">
 			<form
-				className="bg-[#40404421] shadow-sm backdrop-blur-sm mt-7 md:mb-10 rounded-xl flex flex-col w-full gap-5  max-w-md mx-auto"
+				className="bg-[#40404421] shadow-sm backdrop-blur-sm w-[350px] mt-7 md:mb-10 rounded-xl flex flex-col gap-5  max-w-md mx-auto"
 				onSubmit={(e) => handleSendTransaction(e)}
 			>
 				<div className="p-7">

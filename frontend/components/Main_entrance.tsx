@@ -20,7 +20,7 @@ const Main_entrance = () => {
 	]);
 	const [duration, setDuration] = useState("");
 
-	const [currentActiveStep, setCurrentActiveStep] = useState(1);
+	const [currentActiveStep, setCurrentActiveStep] = useState(2);
 	const updateSteps = ({ step }: { completed: boolean; step: number }) => {
 		const findStep = steps.find((targetStep) => targetStep.step === step);
 		const findCompletedSteps = steps.filter((allSteps) => allSteps.completed);
