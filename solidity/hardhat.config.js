@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("hardhat-gas-reporter");
+require("hardhat-deploy");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -15,13 +15,15 @@ module.exports = {
 	networks: {
 		bnbchain: {
 			url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-			accounts: [PRIVATE_KEY],
+			accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
 			chainId: 97,
+			gas: 2100000,
+			gasPrice: 5000000000,
 		},
 	},
 
 	gasReporter: {
-		enabled: true,
+		enabled: false,
 		currency: "BNB",
 		// noColors: true,
 		coinmarketcap: COINMARKETCAP_API_KEY,

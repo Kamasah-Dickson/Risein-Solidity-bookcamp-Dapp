@@ -53,6 +53,8 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const BINANCESCAN_API_KEY = process.env.BINANCESCAN_API_KEY;
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
+cosnt UPDATE_FRONT_END = //true/false i use this to run a script in scripts/updateFrontend
+
 ```
 
 for your bscscan api key please go to https://bscscan.com/myapikey
