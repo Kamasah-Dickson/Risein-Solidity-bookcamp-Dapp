@@ -23,7 +23,7 @@ contract LockToken {
     //state variables
     mapping(address => Deposit) private s_deposits;
     mapping(address => uint256) public withdrawalBalances;
-    uint256 constant MINIMUM_BNB = 1e18;
+    uint256 constant MINIMUM_BNB = 1e16;
     address private immutable i_owner;
 
     //events
@@ -64,7 +64,7 @@ contract LockToken {
             revert("Unlock duration must be greater than zero");
         }
         if (msg.value < MINIMUM_BNB) {
-            revert("Deposit amount must be at least 1ETH");
+            revert("Deposit amount must be at least 0.01ETH");
         }
         if (_rate > 70) {
             revert("Interest rate cannot exceed 70%");
