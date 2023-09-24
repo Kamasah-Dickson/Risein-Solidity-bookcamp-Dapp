@@ -13,6 +13,7 @@ describe("LockToken Contract", function () {
 	let owner;
 
 	beforeEach(async function () {
+		this.timeout(120000);
 		[user1] = await ethers.getSigners();
 
 		// Deploy the LockToken contract
@@ -24,16 +25,21 @@ describe("LockToken Contract", function () {
 	});
 
 	it("Should allow users to deposit funds", async function () {
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 		const unlockDuration = 60; // 60 seconds
 		const interestRate = 5; // 5%
 		// User 1 deposits funds
 		await lockToken.connect(user1).deposit(unlockDuration, interestRate, {
 			value: depositAmount,
+			from: user1,
 		});
 
 		// Verifying the deposit for User 1
 		const user1Deposit = await lockToken.getDepositAmount(user1.address);
+		const depositAmountInContract = user1Deposit.amount;
+
+		// Check if the deposit amount in the contract matches the expected deposit amount
+		expect(depositAmountInContract).to.equal(depositAmount);
 		expect(user1Deposit.amount).to.equal(depositAmount);
 		expect(user1Deposit.unlockTime).to.not.equal(0);
 		expect(user1Deposit.rate).to.equal(interestRate);
@@ -44,13 +50,14 @@ describe("LockToken Contract", function () {
 	});
 
 	it("Should return the correct deposit amount for the user", async function () {
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 		const unlockDuration = 60; // 60 seconds
 		const interestRate = 5; // 5%
 
 		// User 1 deposits funds
 		await lockToken.connect(user1).deposit(unlockDuration, interestRate, {
 			value: depositAmount,
+			from: user1,
 		});
 
 		// Verify the deposit amount for User 1
@@ -59,7 +66,7 @@ describe("LockToken Contract", function () {
 	});
 
 	it("Should prevent withdrawal when funds are still locked", async function () {
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 		const unlockDuration = 60; // 60 seconds
 		const interestRate = 5; // 5%
 
@@ -80,7 +87,7 @@ describe("LockToken Contract", function () {
 	});
 
 	it("Should revert if interest rate is above 70%", async function () {
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 		const unlockDuration = 60; // 60 seconds
 		const highInterestRate = 75; // 75% (above 70%)
 
@@ -93,7 +100,7 @@ describe("LockToken Contract", function () {
 	});
 
 	it("Should allow users to withdraw funds with earned interest", async function () {
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 		const unlockDuration = 60; // 60 seconds
 		const interestRate = 5; // 5%
 
@@ -133,7 +140,7 @@ describe("LockToken Contract", function () {
 	it("Should allow users to gain profit when withdrawing funds", async function () {
 		const unlockDuration = 60; // 60 seconds
 		const interestRate = 5; // 5%
-		const depositAmount = ethers.parseEther("1");
+		const depositAmount = ethers.parseUnits("0.01", "ether");
 
 		// Calculate the expected interest
 		const expectedInterest =
