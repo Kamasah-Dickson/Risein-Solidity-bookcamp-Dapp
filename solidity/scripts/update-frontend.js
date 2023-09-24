@@ -1,7 +1,7 @@
 const { ethers, network } = require("hardhat");
 
 const { readFileSync, writeFileSync } = require("fs");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config(); // can modify this to work for you
 
 const FRONT_END_ADDRESSES_FILE =
 	"../frontend/constants/contractAddressess.json";
@@ -11,9 +11,14 @@ const UPDATE_FRONT_END = process.env.UPDATE_FRONT_END;
 
 async function updateFrontend() {
 	if (UPDATE_FRONT_END) {
+		console.log(UPDATE_FRONT_END);
 		await updateContractAddressess();
 		await updateAbi();
 		console.log("Frontend updated✨");
+	} else {
+		console.log(
+			"Fronend cannot be updated please make it true in your .env file"
+		);
 	}
 }
 
@@ -51,5 +56,3 @@ async function updateContractAddressess() {
 
 	writeFileSync(FRONT_END_ADDRESSES_FILE, JSON.stringify(currentAddresses));
 }
-
-module.exports.tags = ["frontend"];
