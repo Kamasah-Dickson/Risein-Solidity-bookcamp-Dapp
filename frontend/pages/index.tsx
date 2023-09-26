@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import Blockchain_icons from "@/components/blockchain-icons";
 import Main_entrance from "@/components/Main_entrance";
+import { LoadingStateContext } from "@/context/loadingContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,7 +11,7 @@ export default function Home() {
 	return (
 		<>
 			<Head>
-				<title key={"title"}>Smart Contract Token-Lock</title>
+				<title key={"title"}>Smart contract profi-lock tokens</title>
 			</Head>
 			<Header />
 			<main
@@ -19,8 +20,9 @@ export default function Home() {
 				<h1 className="mb-5 text-3xl font-bold md:text-5xl xl:text-6xl md:max-w-xl text-center">
 					Welcome to ProfiLock Tokens
 				</h1>
-
-				<Main_entrance />
+				<LoadingStateContext>
+					<Main_entrance />
+				</LoadingStateContext>
 				<Blockchain_icons />
 			</main>
 		</>
