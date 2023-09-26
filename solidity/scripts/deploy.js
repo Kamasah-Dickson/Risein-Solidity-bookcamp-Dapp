@@ -13,7 +13,7 @@ async function main() {
 	const lockToken = await lockTokenFactory.deploy();
 	await lockToken.waitForDeployment();
 	const contractAddress = await lockToken.getAddress();
-	await updateFrontend();
+	await updateFrontend(contractAddress);
 	console.log(`deployed contract to: ${contractAddress}`);
 	// verify our contract if the chainId is 97 which is bnb and the bscscan api key is true
 	if (network.config.chainId === 97 && process.env.BINANCESCAN_API_KEY) {
