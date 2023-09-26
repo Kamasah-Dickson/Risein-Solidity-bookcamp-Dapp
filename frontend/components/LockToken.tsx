@@ -105,20 +105,6 @@ export function LockToken({
 				className="bg-[#40404421] shadow-sm backdrop-blur-sm mt-7 md:mb-20 rounded-xl flex flex-col w-full gap-5 p-7 max-w-lg mx-auto"
 				onSubmit={(e) => handleSendTransaction(e)}
 			>
-				{/* <div className="flex flex-col gap-2">
-					<label htmlFor="address" className="text-[grey]">
-						Contract Address
-					</label>
-					<input
-						id="address"
-						aria-label="Recipient"
-						placeholder="0xA0Cf…251e"
-						disabled
-						value={lockTokenAddress!}
-						name="recipientAddress"
-						className="p-2 text-black hover:cursor-not-allowed font-bold rounded-md"
-					/>
-				</div> */}
 				<div className="flex mt-4 flex-col gap-2">
 					<label htmlFor="bnb" className="text-[grey]">
 						Deposit BNB
