@@ -11,7 +11,7 @@ import {
 } from "wagmi";
 
 import { parseEther } from "ethers";
-import { Itrans } from "@/interface/interface";
+import { Itrans } from "../interface/interface";
 
 export function LockToken({
 	goTonextStep,
