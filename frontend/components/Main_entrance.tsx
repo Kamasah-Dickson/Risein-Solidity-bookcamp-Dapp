@@ -1,10 +1,10 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { SendTransaction } from "./SendTransaction";
 import { useContext, useState } from "react";
 import { useAccount } from "wagmi";
 import Withdraw from "./Withdraw";
 import { LoadingContext } from "@/context/loadingContext";
 import { Isteps } from "@/interface/interface";
+import LockToken from "./LockToken";
 
 const Main_entrance = () => {
 	const { address } = useAccount();
@@ -84,11 +84,11 @@ const Main_entrance = () => {
 				className={`flex mt-5 flex-col md:flex-row items-start md:gap-20 w-full max-w-3xl mx-auto`}
 			>
 				{currentActiveStep == 1 ? (
-					<SendTransaction
-						setEnableWithdraw={setEnableWithdraw}
+					<LockToken
 						goTonextStep={goTonextStep}
 						duration={duration}
 						setDuration={setDuration}
+						setEnableWithdraw={setEnableWithdraw}
 					/>
 				) : currentActiveStep == 2 ? (
 					<Withdraw
