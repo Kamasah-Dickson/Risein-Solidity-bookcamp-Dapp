@@ -9,10 +9,9 @@ const FRONT_END_ADDRESSES_FILE =
 const FRONT_END_ABI_FILE = "../frontend/constants/abi.json";
 const UPDATE_FRONT_END = process.env.UPDATE_FRONT_END;
 
-async function updateFrontend() {
+async function updateFrontend(address) {
 	if (UPDATE_FRONT_END) {
-		console.log(UPDATE_FRONT_END);
-		await updateContractAddressess();
+		await updateContractAddressess(address);
 		await updateAbi();
 		console.log("Frontend updated✨");
 	} else {
@@ -26,32 +25,24 @@ module.exports = updateFrontend;
 
 async function updateAbi() {
 	const LockTokenFactory = await ethers.getContractFactory("LockToken");
-	const lockToken = await LockTokenFactory.deploy();
-	await lockToken.waitForDeployment();
-
-	await lockToken.getAddress();
 	writeFileSync(
 		FRONT_END_ABI_FILE,
 		JSON.stringify(LockTokenFactory.interface.fragments)
 	);
 }
 
-async function updateContractAddressess() {
-	const LockTokenFactory = await ethers.getContractFactory("LockToken");
-	const lockToken = await LockTokenFactory.deploy();
-	await lockToken.waitForDeployment();
-
+async function updateContractAddressess(address) {
 	const chainId = network.config.chainId.toString();
 	const currentAddresses = JSON.parse(
 		readFileSync(FRONT_END_ADDRESSES_FILE, "utf8")
 	);
 
 	if (chainId in currentAddresses) {
-		if (!currentAddresses[chainId].includes(await lockToken.getAddress())) {
-			currentAddresses[chainId].push(await lockToken.getAddress());
+		if (!currentAddresses[chainId].includes(address)) {
+			currentAddresses[chainId].push(address);
 		}
 	} else {
-		currentAddresses[chainId] = [await lockToken.getAddress()];
+		currentAddresses[chainId] = [address];
 	}
 
 	writeFileSync(FRONT_END_ADDRESSES_FILE, JSON.stringify(currentAddresses));
