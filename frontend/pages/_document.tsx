@@ -4,7 +4,7 @@ export default function Document() {
 	return (
 		<Html lang="en">
 			<Head>
-				<meta name="description" content="smart contract token-lock" />
+				<meta name="description" content="smart contract profi-lock tokens" />
 				<link rel="icon" href="/icon.svg" sizes="any" />
 			</Head>
 			<body>
