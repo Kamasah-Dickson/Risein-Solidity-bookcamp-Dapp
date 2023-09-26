@@ -11,7 +11,6 @@ import {
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, bscTestnet } from "wagmi/chains";
 import { ToastContainer } from "react-toastify";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 const { chains, publicClient } = configureChains(
 	[bscTestnet, mainnet, polygon, optimism, arbitrum],
