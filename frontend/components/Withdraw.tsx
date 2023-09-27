@@ -44,8 +44,9 @@ export function Withdraw({
 		functionName: "withdraw",
 		chainId: 97,
 		account: address,
-		gas: BigInt("308735"),
-		gasPrice: BigInt("1000000000"),
+		gas: BigInt("104878"),
+		gasPrice: BigInt("2000000000"),
+
 		onError(error) {
 			console.log(error.message);
 			setError(error.message);
