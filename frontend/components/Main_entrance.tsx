@@ -114,11 +114,14 @@ const Main_entrance = () => {
 								</div>
 							</>
 						) : currentActiveStep === 2 ? (
-							<div>
+							<div className="flex flex-col gap-3">
 								<h2 className="mb-3">Step2</h2>
 								<span className="text-xs">
-									Specify a duration and a percentage value whih would be used
-									to calculate your profits
+									Specify a duration and a percentage value which would be used
+									as a part to calculate your profits
+								</span>
+								<span className="text-xs text-[yellow]">
+									Please make sure you have enough BNB to withdraw your funds
 								</span>
 							</div>
 						) : (
