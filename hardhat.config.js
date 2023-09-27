@@ -1,5 +1,4 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("hardhat-gas-reporter");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -21,7 +20,7 @@ module.exports = {
 	},
 
 	gasReporter: {
-		enabled: true,
+		enabled: false,
 		currency: "BNB",
 		// noColors: true,
 		coinmarketcap: COINMARKETCAP_API_KEY,
