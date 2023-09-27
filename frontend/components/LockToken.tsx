@@ -160,7 +160,7 @@ export function LockToken({
 						isLoading || !rate || !duration || !amount || isWaitForTransLoading
 					}
 				>
-					{isLoading || isWaitForTransLoading ? "Please wait..." : "Send"}
+					{isLoading || isWaitForTransLoading ? "Please wait..." : "Deposit"}
 				</button>
 			</form>
 			<div className="pb-4 px-4">
