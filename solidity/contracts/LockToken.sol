@@ -84,7 +84,7 @@ contract LockToken {
      * @notice Function to withdraw funds along with earned interest
      */
 
-    function withdraw() external {
+    function withdraw() external payable {
         Deposit storage depositInfo = s_deposits[msg.sender];
         if (depositInfo.amount == 0) {
             revert("No active deposit");
@@ -119,17 +119,13 @@ contract LockToken {
     ) internal view returns (uint256) {
         Deposit storage depositInfo = s_deposits[userAddress];
         uint256 principal = depositInfo.amount;
-        uint256 unlockTime = depositInfo.unlockTime;
+        uint256 rate = depositInfo.rate;
+        uint256 unlockTime = depositInfo.unlockTime / rate;
 
-        if (block.timestamp >= unlockTime) {
-            // Tokens are unlocked, calculate daily reward based on the locked amount
-            uint256 timeElapsed = block.timestamp - unlockTime;
-            uint256 daysElapsed = timeElapsed / 1 days;
+        // Calculating earnings based on the rate
+        uint256 dailyEarnings = (principal * rate + unlockTime) / 100;
 
-            return (principal * daysElapsed);
-        } else {
-            revert("Tokens are still locked, no rewards earned");
-        }
+        return dailyEarnings;
     }
 
     /**
