@@ -105,11 +105,14 @@ const Main_entrance = () => {
 					<div className="mt-7  mb-7 md:mb-0">
 						{currentActiveStep === 1 ? (
 							<>
-								<div className="bg-[#40404421]  p-5 rounded-md">
+								<div className="bg-[#40404421]  p-5 rounded-md flex flex-col gap-3">
 									<h2 className="mb-3">Step1</h2>
 									<span className="text-xs">
 										A deposit of at least 0.01BNB to prevent fraudulent acts and
 										mentain integrity to the smartcontract.
+									</span>
+									<span className="text-xs text-[yellow]">
+										Please make sure you have enough BNB in your wallet
 									</span>
 								</div>
 							</>
