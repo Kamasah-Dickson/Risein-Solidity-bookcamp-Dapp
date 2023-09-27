@@ -23,14 +23,14 @@ contract LockToken {
     //state variables
     mapping(address => Deposit) private s_deposits;
     mapping(address => uint256) public withdrawalBalances;
-    uint256 constant MINIMUM_BNB = 1e18;
+    uint256 constant MINIMUM_BNB = 1e16;
     address private immutable i_owner;
 
     //events
-    event DepositReceived(address indexed user, uint256 amount);
-    event UnlockDurationSet(address indexed user, uint256 unlockTime);
+    event DepositReceived(address indexed userAddress, uint256 amount);
+    event UnlockDurationSet(address indexed userAddress, uint256 unlockTime);
     event Withdrawal(
-        address indexed user,
+        address indexed userAddress,
         uint256 amount,
         uint256 interest,
         uint256 when
@@ -64,7 +64,7 @@ contract LockToken {
             revert("Unlock duration must be greater than zero");
         }
         if (msg.value < MINIMUM_BNB) {
-            revert("Deposit amount must be at least 1ETH");
+            revert("Deposit amount must be at least 0.01ETH");
         }
         if (_rate > 70) {
             revert("Interest rate cannot exceed 70%");
@@ -84,7 +84,7 @@ contract LockToken {
      * @notice Function to withdraw funds along with earned interest
      */
 
-    function withdraw() external {
+    function withdraw() external payable {
         Deposit storage depositInfo = s_deposits[msg.sender];
         if (depositInfo.amount == 0) {
             revert("No active deposit");
@@ -111,25 +111,21 @@ contract LockToken {
 
     /**
      * @notice this function  calculates daily rewards
-     * @param user  is the user address, it is used to access the deposite info of the user
+     * @param userAddress  is the user address, it is used to access the deposite info of the user
      */
 
     function calculateDailyReward(
-        address user
+        address userAddress
     ) internal view returns (uint256) {
-        Deposit storage depositInfo = s_deposits[user];
+        Deposit storage depositInfo = s_deposits[userAddress];
         uint256 principal = depositInfo.amount;
-        uint256 unlockTime = depositInfo.unlockTime;
+        uint256 rate = depositInfo.rate;
+        uint256 unlockTime = depositInfo.unlockTime / rate;
 
-        if (block.timestamp >= unlockTime) {
-            // Tokens are unlocked, calculate daily reward based on the locked amount
-            uint256 timeElapsed = block.timestamp - unlockTime;
-            uint256 daysElapsed = timeElapsed / 1 days;
+        // Calculating earnings based on the rate
+        uint256 dailyEarnings = (principal * rate + unlockTime) / 100;
 
-            return (principal * daysElapsed);
-        } else {
-            revert("Tokens are still locked, no rewards earned");
-        }
+        return dailyEarnings;
     }
 
     /**
